@@ -1,5 +1,5 @@
 import React from 'react';
-import { BlogContextProvider, CartContextProvider } from './context';
+import { BlogContextProvider, CartContextProvider, ModalContextProvider } from './context';
 import List from './components/list'
 
 function App() {
@@ -7,7 +7,9 @@ function App() {
     <>
       <BlogContextProvider>
       <CartContextProvider>
-        <List />
+        <ModalContextProvider> 
+          <List />
+        </ModalContextProvider> 
       </CartContextProvider>
       </BlogContextProvider>
     </>

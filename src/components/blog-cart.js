@@ -6,6 +6,7 @@ import { shorten, isInCart, quantityCount } from '../helper/functions';
 
 // Context
 import { CartContext } from '../context/cart-context-provider';
+import { ModalContext } from '../context/modal-context-provider';
 
 // Icons
 import trashIcon from "../assets/icons/trash.svg";
@@ -13,10 +14,16 @@ import trashIcon from "../assets/icons/trash.svg";
 // Style
 import classes from "./blog-cart.module.scss";
 
+//Components
+import Modal from './modal';
+
 const BlogCart = ({data}) => {
 
     const {state, dispatch} = useContext(CartContext);
-
+    const { stateModal,dispatchModal} = useContext(ModalContext);
+    const { enableModals} = stateModal;
+    const enableModal = enableModals.find((modal) => modal['slug'] === 'blog' &&  modal['index'] === data.id) 
+    
     return (
         <div className={classes.container} >
             <h3>{data.title}</h3>
@@ -28,10 +35,35 @@ const BlogCart = ({data}) => {
                     {
                         isInCart(state, data.id) ?
                         <button className={classes.smallButton} onClick={() => dispatch({type: "INCREASE", payload: data})}>+</button> :
-                        <button onClick={() => dispatch({type: "ADD_ITEM", payload: data})}>Add to Cart</button>
+                        <button 
+                            // onClick={() => dispatch({type: "ADD_ITEM", payload: data})}
+                            onClick={() => {
+                                dispatchModal({type:'SHOW_MODAL', payload:{metaSlug : 'blog', metaIndex:data.id }})   
+                            }}
+                        >Edit</button>
                     }
                 </div>
             </div>
+            {enableModal !== undefined &&
+                    <Modal title={data.title} metaIndex={data.id}>
+                        <div className={classes.buttonContainer}>
+                            <button 
+                                onClick={() => {
+
+                                }}
+                            >
+                                Edit
+                            </button>
+                            <button 
+                                onClick={() => {
+                                    
+                                }}
+                            >
+                                Remove
+                            </button>
+                        </div>
+                    </Modal>
+                } 
         </div>
     );
 };

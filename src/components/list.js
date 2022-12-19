@@ -4,7 +4,7 @@ import Pagination from './pagination';
 import { BlogsContext } from '../context/blog-context-provider';
 import './list.scss';
 
-let PageSize = 5;
+let PageSize = 10;
 function List(props) {
     const [currentPage, setCurrentPage] = useState(1);
     const blogs = useContext(BlogsContext)
