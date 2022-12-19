@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useContext } from 'react';
+import React, { useState, useMemo, useContext, useEffect } from 'react';
 import BlogCart from './blog-cart';
 import Pagination from './pagination';
 import { BlogsContext } from '../context/blog-context-provider';
@@ -12,7 +12,7 @@ function List(props) {
       const firstPageIndex = (currentPage - 1) * PageSize;
       const lastPageIndex = firstPageIndex + PageSize;
       return blogs.slice(firstPageIndex, lastPageIndex);
-    }, [currentPage]);
+    }, [currentPage, blogs]);
 
     return (
     <>

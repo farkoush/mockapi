@@ -8,12 +8,15 @@ const getBlogs = async () => {
 }
 
 const updateBlog = async (id, data) => {
-    console.log('data.title',data.title)
     const response = await axios.put(`${BASE_URL}/blogs/${id}`,{
         title : data.title
     });
-    console.log('response.data', response.data)
     return response.data;
 }
 
-export {getBlogs,updateBlog};
+const RemoveBlog = async (id, data) => {
+    const response = await axios.delete(`${BASE_URL}/blogs/${id}`);
+    return response.data;
+}
+
+export {getBlogs,updateBlog,RemoveBlog};
