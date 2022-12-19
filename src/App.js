@@ -6,11 +6,9 @@ function App() {
   return (
     <>
       <BlogContextProvider>
-      <CartContextProvider>
         <ModalContextProvider> 
           <List />
         </ModalContextProvider> 
-      </CartContextProvider>
       </BlogContextProvider>
     </>
   );

@@ -1,12 +1,9 @@
 import React, { useContext, useState } from 'react';
-// import { Link } from 'react-router-dom';
-import axios from 'axios';
 
-// Functions
-import { shorten, isInCart, quantityCount } from '../helper/functions';
+// APIs
 import { updateBlog } from '../services/api';
+
 // Context
-import { CartContext } from '../context/cart-context-provider';
 import { ModalContext } from '../context/modal-context-provider';
 
 // Icons
@@ -22,7 +19,6 @@ const BlogCart = ({data}) => {
     const [modalSlug,setModalSlug] = useState('')
     const [values,setValues] = useState()
 
-    const {state, dispatch} = useContext(CartContext);
     const { stateModal,dispatchModal} = useContext(ModalContext);
     const { enableModals} = stateModal;
     const enableModal = enableModals.find((modal) => modal['slug'] === modalSlug &&  modal['index'] === data.id) 
@@ -45,33 +41,27 @@ const BlogCart = ({data}) => {
             <h3>{data.title}</h3>
             <div className={classes.linkContainer}>
                 <div className={classes.buttonContainer}>
-                    {quantityCount(state, data.id) === 1 && <button className={classes.smallButton} onClick={() => dispatch({type: "REMOVE_ITEM", payload: data})}><img src={trashIcon} alt="trash" /></button>}
-                    {quantityCount(state, data.id) > 1 && <button className={classes.smallButton} onClick={() => dispatch({type: "DECREASE", payload: data})}>-</button>}
-                    {quantityCount(state, data.id) > 0 && <span className={classes.counter}>{quantityCount(state, data.id)}</span>}
                     {
-                        isInCart(state, data.id) ?
-                        <button className={classes.smallButton} onClick={() => dispatch({type: "INCREASE", payload: data})}>+</button> :
-                        (
-                            <>
-                                <button 
-                                    onClick={() => {
-                                        setModalSlug('blog-edit')
-                                        dispatchModal({type:'SHOW_MODAL', payload:{metaSlug : 'blog-edit', metaIndex:data.id }})   
-                                    }}
-                                >
-                                    Edit
-                                </button>
-                                
-                                <button 
-                                    onClick={() => {
-                                        setModalSlug('blog-delete')
-                                        dispatchModal({type:'SHOW_MODAL', payload:{metaSlug : 'blog-delete', metaIndex:data.id }})   
-                                    }}
-                                >
-                                    Remove
-                                </button>
-                            </>
-                        )
+                        <>
+                            <button 
+                                onClick={() => {
+                                    setModalSlug('blog-edit')
+                                    dispatchModal({type:'SHOW_MODAL', payload:{metaSlug : 'blog-edit', metaIndex:data.id }})   
+                                }}
+                            >
+                                Edit
+                            </button>
+                            
+                            <button 
+                                onClick={() => {
+                                    setModalSlug('blog-delete')
+                                    dispatchModal({type:'SHOW_MODAL', payload:{metaSlug : 'blog-delete', metaIndex:data.id }})   
+                                }}
+                            >
+                                Remove
+                            </button>
+                        </>
+                        
                     }
                 </div>
             </div>
@@ -90,11 +80,12 @@ const BlogCart = ({data}) => {
                                         type='text' 
                                         onChange = {handleChange}
                                         className = {classes['input-text']}
+                                        defaultValue = {data.title}
+                                        onFocus = {event =>  event.target.select()}
                                     />
                                     <button 
                                         type="submit" 
                                         className={`${classes['btn']} ${classes['confirm']} confirm`}
-                                        // disabled={disabled}
                                     >
                                         Save
                                     </button>                            
