@@ -7,4 +7,13 @@ const getBlogs = async () => {
     return response.data;
 }
 
-export {getBlogs};
+const updateBlog = async (id, data) => {
+    console.log('data.title',data.title)
+    const response = await axios.put(`${BASE_URL}/blogs/${id}`,{
+        title : data.title
+    });
+    console.log('response.data', response.data)
+    return response.data;
+}
+
+export {getBlogs,updateBlog};
