@@ -54,7 +54,7 @@
   
   .buttonContainer{
       display: flex;
-      // flex-wrap: wrap;
+      flex-wrap: wrap;
       button {
       font-size: 0.9rem;
       background-color: #1a73e8;
@@ -67,7 +67,8 @@
       transition: all 0.2s ease;
       box-shadow: rgba(50, 50, 93, 0.25) 0px 4px 12px -2px,
         rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-      margin-left: 5px;
+      margin: 10px 5px;
+
     }
   }
   
@@ -125,3 +126,26 @@
     }
   }
   
+
+.modal-inner{
+  display: flex;
+  flex-direction: column;
+  .input-text{    
+      background-color: #fff;
+      outline-color: transparent;
+      outline-offset: 0;
+      // border-radius: 4px !important;
+      padding: 8px !important;
+      font-size: 16px;
+      font-weight: 500;
+      color: #8F8F9B;
+      margin: 0 !important;
+      height: 48px !important;
+      border: 1px solid #DADBDC !important;
+      border-radius: 5px;
+      padding: 7px 10px !important;
+      &:focus{
+          outline: none;
+      }
+  }
+}

@@ -30,6 +30,7 @@ const BlogCart = ({data}) => {
         event.preventDefault();
         console.log("Callback function when form is submitted!");
         updateBlog(data.id, values)
+        dispatchModal({type:'OFF_MODAL'})
     }
     const handleChange = (event) => {
         //Let's set these values in state
@@ -82,20 +83,20 @@ const BlogCart = ({data}) => {
                         <Modal title={data.title} metaIndex={data.id}>
                             <div className={classes.buttonContainer}>
                             <form onSubmit={onSubmitHandler} id={`edit-form`}>
-                                <div className="modal-inner">
+                                <div className={classes['modal-inner']}>
                                     <input      
                                         name={`title`} 
                                         placeHolder='Blog Title'
                                         type='text' 
                                         onChange = {handleChange}
-                                        isRequired = {true}
+                                        className = {classes['input-text']}
                                     />
                                     <button 
                                         type="submit" 
                                         className={`${classes['btn']} ${classes['confirm']} confirm`}
                                         // disabled={disabled}
                                     >
-                                        ذخیره
+                                        Save
                                     </button>                            
                                 </div>
                             </form>
