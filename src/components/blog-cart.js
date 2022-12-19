@@ -11,7 +11,7 @@ import { CartContext } from '../context/cart-context-provider';
 import trashIcon from "../assets/icons/trash.svg";
 
 // Style
-import classes from "./blog-cart.module.css";
+import classes from "./blog-cart.module.scss";
 
 const BlogCart = ({data}) => {
 
@@ -19,11 +19,8 @@ const BlogCart = ({data}) => {
 
     return (
         <div className={classes.container} >
-            {/* <h3>{shorten(data.title)}</h3> */}
-            {console.log('data', data)}
-            <h3>{data.email}</h3>
+            <h3>{data.title}</h3>
             <div className={classes.linkContainer}>
-                {/* <Link to={`/products/${data.id}`}>Details</Link> */}
                 <div className={classes.buttonContainer}>
                     {quantityCount(state, data.id) === 1 && <button className={classes.smallButton} onClick={() => dispatch({type: "REMOVE_ITEM", payload: data})}><img src={trashIcon} alt="trash" /></button>}
                     {quantityCount(state, data.id) > 1 && <button className={classes.smallButton} onClick={() => dispatch({type: "DECREASE", payload: data})}>-</button>}
