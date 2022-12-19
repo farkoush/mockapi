@@ -1,7 +1,12 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useContext } from 'react';
 import data from './data/mock-data.json';
 import Pagination from './components/pagination';
+import { BlogContextProvider, CartContextProvider } from './context';
+import BlogCart from './components/blog-cart';
 import './App.scss';
+// import classes from "./app.module.css";
+// Context
+import { BlogsContext } from './context/blog-context-provider';
 
 let PageSize = 10;
 
@@ -13,40 +18,33 @@ function App() {
     const lastPageIndex = firstPageIndex + PageSize;
     return data.slice(firstPageIndex, lastPageIndex);
   }, [currentPage]);
+  const blogs = useContext(BlogsContext)
+  console.log('blogsss', blogs)
 
   return (
     <>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>FIRST NAME</th>
-            <th>LAST NAME</th>
-            <th>EMAIL</th>
-            <th>PHONE</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentTableData.map(item => {
-            return (
-              <tr>
-                <td>{item.id}</td>
-                <td>{item.first_name}</td>
-                <td>{item.last_name}</td>
-                <td>{item.email}</td>
-                <td>{item.phone}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      <Pagination
-        className="pagination-bar"
-        currentPage={currentPage}
-        totalCount={data.length}
-        pageSize={PageSize}
-        onPageChange={page => setCurrentPage(page)}
-      />
+      <BlogContextProvider>
+      <CartContextProvider>
+        {/* <div className={classes.container} > */}
+        <div className='container' >
+            {currentTableData.map(item => {
+              return (
+                <BlogCart 
+                    key={item.id} 
+                    data = {item}
+                />
+              );
+            })}
+        </div>
+        <Pagination
+          className="pagination-bar"
+          currentPage={currentPage}
+          totalCount={data.length}
+          pageSize={PageSize}
+          onPageChange={page => setCurrentPage(page)}
+        />
+      </CartContextProvider>
+      </BlogContextProvider>
     </>
   );
 }
